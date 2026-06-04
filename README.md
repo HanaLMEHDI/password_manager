@@ -73,24 +73,6 @@ password_manager/
 
 ---
 
-### ⚡ Méthode rapide — XAMPP
-
-```bash
-# 1. Cloner le projet
-git clone https://github.com/TON_USERNAME/password_manager.git
-
-# 2. Copier dans htdocs
-cp -r password_manager/ C:/xampp/htdocs/
-```
-
-```
-3. Démarrer Apache + MySQL dans XAMPP
-4. Importer donnees/base.sql via phpMyAdmin
-5. Ouvrir → http://localhost/password_manager/Interface/connexion.html
-```
-
----
-
 ### 🔧 Configuration base de données
 
 Modifier `serveur/connexion_bd.php` :
