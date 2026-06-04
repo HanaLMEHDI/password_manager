@@ -1,0 +1,11 @@
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Éditeurs
+.vscode/
+.idea/
+*.swp
+
+# Infos sensibles (ne jamais versionner)
+serveur/connexion_bd.php
