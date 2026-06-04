@@ -1,3 +1,13 @@
+<?php
+session_start();
+if (!isset($_SESSION["uid"])) {
+    header("Location: connexion.php");
+    exit;
+}
+$nom_user = htmlspecialchars($_SESSION["nom"]);
+$uid      = (int) $_SESSION["uid"];
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -804,7 +814,7 @@
         let mdpVisible     = false;
 
         const ICONES = {
-            github:    ["🐙", "#E6F1FB"],
+            github:    ["<i class='fa-brands fa-github'></i>", "#E6F1FB"],
             gitlab:    ["🦊", "#FAECE7"],
             google:    ["🌐", "#E6F1FB"],
             gmail:     ["📧", "#FAECE7"],
@@ -849,23 +859,12 @@
                 .replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
         }
 
-        /* Init */
+        /* Init — nom injecté directement par PHP (session vérifiée server-side) */
         async function init() {
-            try {
-                const d = new FormData();
-                d.append("action", "verifier");
-                const rep  = await fetch("../serveur/auth.php", { method: "POST", body: d });
-                const json = await rep.json();
-                if (!json.ok) { window.location.href = "connexion.html"; return; }
-
-                nomUser = json.nom;
-                document.getElementById("avatar-nom").textContent = nomUser;
-                document.getElementById("avatar-initiales").textContent = nomUser.slice(0,2).toUpperCase();
-                await charger();
-            } catch(e) {
-                document.getElementById("list-panel").innerHTML =
-                    `<div class="vide">⚠️ Impossible de contacter le serveur.<br>Vérifie que PHP est actif.</div>`;
-            }
+            nomUser = <?php echo json_encode($nom_user); ?>;
+            document.getElementById("avatar-nom").textContent = nomUser;
+            document.getElementById("avatar-initiales").textContent = nomUser.slice(0,2).toUpperCase();
+            await charger();
         }
 
         /* Charger */
